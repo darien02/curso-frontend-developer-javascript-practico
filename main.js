@@ -110,5 +110,5 @@ const productList =[]
     
         } 
     }
+    //function render 
     renderProduct(productList)
-    

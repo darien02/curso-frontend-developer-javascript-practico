@@ -1,114 +1,119 @@
-//variavles del menu toogle desktop
-const menuClickDesktop = document.querySelector('.navbar-email')
-const desktopMenu = document.querySelector('.desktop-menu')
-//variables para ham menu mobile
-const botonMenuHam = document.querySelector('.menu')
-const menuMobile = document.querySelector('.mobile-menu')
-//variables carrito
-const menuCarrito = document.querySelector('.navbar-shopping-cart')
-const aside = document.querySelector('.product-detail')
-//selecionar div de producto 
-const cardsContainer = document.querySelector('.cards-container')
+const menuEmail = document.querySelector('.navbar-email');
+const menuHamIcon = document.querySelector('.menu');
+const menuCarritoIcon = document.querySelector('.navbar-shopping-cart');
+const productDetailCloseIcon = document.querySelector('.product-detail-close')
+const desktopMenu = document.querySelector('.desktop-menu');
+const mobileMenu = document.querySelector('.mobile-menu');
+const shoppingCartContainer = document.querySelector('#shoppingCartContainer');
+const productDetailContainer = document.querySelector('#productDetail');
+const cardsContainer = document.querySelector('.cards-container');
 
-//evento toggle menu email
-menuClickDesktop.addEventListener('click', toggleDesktopMenu)
-//evento toggle menu ham mobile
-botonMenuHam.addEventListener('click',toggleMobileMenu)
-//evento toggle carrito aside
-menuCarrito.addEventListener('click', togglecarrito)
+menuEmail.addEventListener('click', toggleDesktopMenu);
+menuHamIcon.addEventListener('click', toggleMobileMenu);
+menuCarritoIcon.addEventListener('click', toggleCarritoAside);
+productDetailCloseIcon.addEventListener('click', closeProductDetailAside);
 
-function toggleDesktopMenu(){
-        isAsideMenuClosed = aside.classList.contains('inactive')
-    if(!isAsideMenuClosed){
-        aside.classList.add('inactive')
-    }
-    desktopMenu.classList.toggle('inactive')
+function toggleDesktopMenu() {
+  const isAsideClosed = shoppingCartContainer.classList.contains('inactive');
 
+  if (!isAsideClosed) {
+    shoppingCartContainer.classList.add('inactive');
+  }
+  
+  desktopMenu.classList.toggle('inactive');
 }
 
 function toggleMobileMenu() {
-    isAsideMenuClosed = aside.classList.contains('inactive')
-    if(!isAsideMenuClosed){
-        aside.classList.add('inactive')
-    }
-    menuMobile.classList.toggle('inactive')
-}
-function togglecarrito() {
-    const ismenuMobileClosed = menuMobile.classList.contains('inactive')
-        
-    if(!ismenuMobileClosed){
-        menuMobile.classList.add('inactive')
-    }
-    aside.classList.toggle('inactive')
-    
+  const isAsideClosed = shoppingCartContainer.classList.contains('inactive');
+
+  if (!isAsideClosed) {
+    shoppingCartContainer.classList.add('inactive'); 
+  }
+
+  closeProductDetailAside();
+  
+  mobileMenu.classList.toggle('inactive');
 }
 
-const productList =[]
-    productList.push({
-        name: 'Bike',
-        price: 120,
-        image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+function toggleCarritoAside() {
+  const isMobileMenuClosed = mobileMenu.classList.contains('inactive');
+  
+  if (!isMobileMenuClosed) {
+    mobileMenu.classList.add('inactive');
+  }
 
-    })
-    productList.push({
-        name: 'perro',
-        price: 150,
-        image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
-        
-    })
-    productList.push({
-        name: 'gato',
-        price: 130,
-        image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
-        
-    })
-    
-    function renderProduct(arr) {
-        for (producto of productList){
+  const isProductDetailClosed = productDetailContainer.classList.contains('inactive');
+  
+  if (!isProductDetailClosed) {
+    productDetailContainer.classList.add('inactive'); 
+  }
+  
+  shoppingCartContainer.classList.toggle('inactive');
+}
 
-            const productCard = document.createElement('div')
-            productCard.classList.add('product-card')
-    
-            const productImg = document.createElement('img')
-            productImg.setAttribute('src', producto.image)
-    
-            const productInfo = document.createElement('div')
-            productInfo.classList.add('product-info')
-    
-            const productInfoDiv = document.createElement('div')
-    
-            const productPrice = document.createElement('p')
-            productPrice.innerText ='$'+producto.price
-            const productName = document.createElement('p')
-            productName.innerText = producto.name
-    
-            productInfoDiv.appendChild(productPrice)
-            productInfoDiv.appendChild(productName)
-    
-    
-            const productInfoFigure = document.createElement('figure');
-            const productImgCart = document.createElement('img');
-            productImgCart.setAttribute('src', './icons/bt_add_to_cart.svg');
-    
-            productInfoFigure.appendChild(productImgCart)
-    
-            productInfo.appendChild(productInfoDiv)
-            productInfo.appendChild(productInfoFigure)
-    
-            productCard.appendChild(productImg)
-            productCard.appendChild(productInfo)
-    
-            cardsContainer.appendChild(productCard)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        } 
-    }
-    //function render 
-    renderProduct(productList)
+function openProductDetailAside() {
+  shoppingCartContainer.classList.add('inactive');
+  productDetailContainer.classList.remove('inactive');
+}
+
+function closeProductDetailAside() {
+  productDetailContainer.classList.add('inactive');
+}
+
+const productList = [];
+productList.push({
+  name: 'Bike',
+  price: 120,
+  image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+});
+productList.push({
+  name: 'Pantalla',
+  price: 220,
+  image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+});
+productList.push({
+  name: 'Compu',
+  price: 620,
+  image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+});
+
+function renderProducts(arr) {
+  for (product of arr) {
+    const productCard = document.createElement('div');
+    productCard.classList.add('product-card');
+  
+    // product= {name, price, image} -> product.image
+    const productImg = document.createElement('img');
+    productImg.setAttribute('src', product.image);
+    productImg.addEventListener('click', openProductDetailAside);
+  
+    const productInfo = document.createElement('div');
+    productInfo.classList.add('product-info');
+  
+    const productInfoDiv = document.createElement('div');
+  
+    const productPrice = document.createElement('p');
+    productPrice.innerText = '$' + product.price;
+    const productName = document.createElement('p');
+    productName.innerText = product.name;
+  
+    productInfoDiv.appendChild(productPrice);
+    productInfoDiv.appendChild(productName);
+  
+    const productInfoFigure = document.createElement('figure');
+    const productImgCart = document.createElement('img');
+    productImgCart.setAttribute('src', './icons/bt_add_to_cart.svg');
+  
+    productInfoFigure.appendChild(productImgCart);
+  
+    productInfo.appendChild(productInfoDiv);
+    productInfo.appendChild(productInfoFigure);
+  
+    productCard.appendChild(productImg);
+    productCard.appendChild(productInfo);
+  
+    cardsContainer.appendChild(productCard);
+  }
+}
+
+renderProducts(productList);
